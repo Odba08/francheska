@@ -3,7 +3,7 @@ import francheskaImg from '../assets/francheska.jpg';
 
 export const AboutSlide: React.FC = () => {
   return (
-    <div className="slide-content" style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
+    <div className="slide-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
       {/* Decorative background */}
       <div className="bg-decor-circle" style={{ width: '500px', height: '500px', bottom: '-10%', left: '20%' }}></div>
 

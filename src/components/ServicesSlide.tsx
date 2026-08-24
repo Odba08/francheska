@@ -12,7 +12,7 @@ export const ServicesSlide: React.FC = () => {
   ];
 
   return (
-    <div className="slide-content" style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
+    <div className="slide-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
       {/* Background Decor */}
       <div className="bg-decor-circle" style={{ width: '550px', height: '550px', top: '-10%', right: '-10%' }}></div>
 
