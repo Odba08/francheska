@@ -141,7 +141,7 @@ export const PortfolioSlide: React.FC = () => {
           </h2>
         </div>
 
-        <div style={{
+        <div className="portfolio-grid" style={{
           display: 'grid',
           gridTemplateColumns: '320px 1fr',
           gap: '50px',
@@ -332,12 +332,14 @@ export const PortfolioSlide: React.FC = () => {
         @media (max-width: 900px) {
           .slide-content {
             justify-content: flex-start !important;
-            padding-top: 10vh !important;
+            padding-top: 90px !important;
           }
           .slide-content > div {
+            padding: 0 16px !important;
+          }
+          .portfolio-grid {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
-            padding: 0 10px !important;
           }
           .brand-tab {
             padding: 12px 18px !important;

@@ -34,7 +34,7 @@ export const ContactSlide: React.FC = () => {
         padding: '0 40px',
         zIndex: 1
       }}>
-        <div style={{
+        <div className="contact-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.2fr',
           gap: '8vw',
@@ -247,12 +247,14 @@ export const ContactSlide: React.FC = () => {
         @media (max-width: 900px) {
           .slide-content {
             justify-content: flex-start !important;
-            padding-top: 10vh !important;
+            padding-top: 90px !important;
           }
           .slide-content > div {
+            padding: 0 16px !important;
+          }
+          .contact-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
-            padding: 0 10px !important;
           }
         }
       `}</style>
