@@ -148,7 +148,7 @@ export const PortfolioSlide: React.FC = () => {
           width: '100%'
         }}>
           {/* Left Column: Brand Selector List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="brand-tab-container" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {brands.map((b) => (
               <div
                 key={b.id}

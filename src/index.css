@@ -364,20 +364,127 @@ p {
 .slide-section.active .brand-tab:nth-child(3) { transition-delay: 0.4s; }
 .slide-section.active .brand-tab:nth-child(4) { transition-delay: 0.5s; }
 
-/* Responsive adjustment */
-@media (max-width: 900px) {
+/* Media query for large screens (24" monitors and large desktops) */
+@media (min-width: 1500px) {
+  :root {
+    --font-size-base: 18px;
+  }
+  
   .slide-section {
-    padding: 10vh 24px;
-    height: auto;
-    min-height: 100vh;
+    padding: 8vh 8vw !important;
   }
-  .nav-arrow {
-    display: none;
+  
+  .slide-content > div {
+    max-width: 1400px !important;
   }
+  
+  /* Scale up sizes in AboutSlide */
+  .about-photo {
+    max-width: 440px !important;
+  }
+  
+  /* Scale up services photo */
+  .services-photo {
+    max-width: 440px !important;
+  }
+  
+  /* Scale up tools collage frames */
+  .tool-image-frame {
+    width: 160px !important;
+    height: 210px !important;
+  }
+  
+  /* Scale up text sizing */
+  h1 {
+    font-size: clamp(90px, 12vw, 170px) !important;
+  }
+  h2 {
+    font-size: 64px !important;
+  }
+  p {
+    font-size: 19px !important;
+  }
+}
+
+/* Responsive adjustment (Mobile View) */
+@media (max-width: 900px) {
+  html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+  }
+  
+  #root {
+    height: auto !important;
+  }
+  
+  .horizontal-scroll-container {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    scroll-snap-type: none !important;
+  }
+  
+  .slide-section {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 100px 20px 60px 20px !important;
+    scroll-snap-align: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .nav-arrow, .slider-dots {
+    display: none !important;
+  }
+  
   .main-nav {
-    padding: 20px 24px;
+    padding: 15px 20px !important;
+    background-color: rgba(245, 241, 235, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid rgba(107, 27, 39, 0.05) !important;
+    pointer-events: auto !important;
   }
-  .nav-menu {
-    display: none;
+  
+  /* Override fade-in states on mobile so content is always fully visible */
+  .slide-section h1,
+  .slide-section h2,
+  .slide-section p,
+  .slide-section .btn-primary,
+  .slide-section .btn-secondary,
+  .slide-section .service-card,
+  .slide-section .brand-tab,
+  .slide-section .tool-card,
+  .slide-section .about-photo,
+  .slide-section .about-content,
+  .slide-section .service-list-item,
+  .slide-section .services-photo,
+  .slide-section .brand-tab-container {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  /* Brand tab selector rows for mobile */
+  .brand-tab-container {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    padding-bottom: 10px !important;
+    gap: 12px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .brand-tab-container::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .brand-tab {
+    flex: 0 0 auto !important;
+    padding: 12px 20px !important;
   }
 }
