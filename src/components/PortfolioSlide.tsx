@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { FiInstagram, FiExternalLink, FiPlay } from 'react-icons/fi';
+import { FiInstagram, FiExternalLink, FiPlay, FiX, FiEye } from 'react-icons/fi';
 
 interface Reel {
   url: string;
   title: string;
   previewColor: string;
   emoji: string;
+  views?: string;
+  isEmbeddable?: boolean;
 }
 
 interface Brand {
@@ -32,13 +34,17 @@ export const PortfolioSlide: React.FC = () => {
           url: 'https://www.instagram.com/reel/DbyrxUyBLcN/',
           title: 'Reel La Vaquita #1',
           previewColor: 'linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%)',
-          emoji: '🍔🔥'
+          emoji: '🍔🔥',
+          views: 'UGC Reel',
+          isEmbeddable: true
         },
         {
           url: 'https://www.instagram.com/reel/DbT-QFShc31/',
           title: 'Reel La Vaquita #2',
           previewColor: 'linear-gradient(135deg, #F6D365 0%, #FDA085 100%)',
-          emoji: '🍺🍟'
+          emoji: '🍺🍟',
+          views: 'UGC Reel',
+          isEmbeddable: true
         }
       ]
     },
@@ -54,13 +60,17 @@ export const PortfolioSlide: React.FC = () => {
           url: 'https://www.instagram.com/reel/Db1fLcGJy17/',
           title: 'Reel Savro #1',
           previewColor: 'linear-gradient(135deg, #FEE140 0%, #FA709A 100%)',
-          emoji: '🍔🤤'
+          emoji: '🍔🤤',
+          views: 'UGC Reel',
+          isEmbeddable: true
         },
         {
           url: 'https://www.instagram.com/reel/DatS80HpdOd/',
           title: 'Reel Savro #2',
           previewColor: 'linear-gradient(135deg, #FF0844 0%, #FFB199 100%)',
-          emoji: '🥓🧀'
+          emoji: '🥓🧀',
+          views: 'UGC Reel',
+          isEmbeddable: true
         }
       ]
     },
@@ -76,13 +86,17 @@ export const PortfolioSlide: React.FC = () => {
           url: 'https://www.instagram.com/reel/Db5-VB0TFS3/',
           title: 'Reel Bellissimas #1',
           previewColor: 'linear-gradient(135deg, #A1C4FD 0%, #C2E9FB 100%)',
-          emoji: '👠👗'
+          emoji: '👠👗',
+          views: 'Fashion UGC',
+          isEmbeddable: true
         },
         {
           url: 'https://www.instagram.com/reel/DboADiOzvcn/',
           title: 'Reel Bellissimas #2',
           previewColor: 'linear-gradient(135deg, #FBC2EB 0%, #A6C1EE 100%)',
-          emoji: '🛍️✨'
+          emoji: '🛍️✨',
+          views: 'Fashion UGC',
+          isEmbeddable: true
         }
       ]
     },
@@ -98,19 +112,33 @@ export const PortfolioSlide: React.FC = () => {
           url: 'https://www.instagram.com/hillarysotostudio/',
           title: 'Nails & Beauty Grid',
           previewColor: 'linear-gradient(135deg, #E2D9D5 0%, #C9B2A6 100%)',
-          emoji: '💅💇‍♀️'
+          emoji: '💅💇‍♀️',
+          views: 'Feed Estético',
+          isEmbeddable: false
         },
         {
           url: 'https://www.instagram.com/hillarysotostudio/',
           title: 'Estrategia de Estética',
           previewColor: 'linear-gradient(135deg, #FDFCFB 0%, #E2D9D5 100%)',
-          emoji: '💆‍♀️✨'
+          emoji: '💆‍♀️✨',
+          views: 'Estrategia CM',
+          isEmbeddable: false
         }
       ]
     }
   ];
 
   const [activeBrand, setActiveBrand] = useState<Brand>(brands[0]);
+  const [activeModalReel, setActiveModalReel] = useState<{ reel: Reel; brandName: string } | null>(null);
+
+  const getEmbedUrl = (url: string) => {
+    // If it's a reel or post url, add /embed/
+    if (url.includes('/reel/') || url.includes('/p/')) {
+      const cleanUrl = url.split('?')[0].replace(/\/$/, '');
+      return `${cleanUrl}/embed/`;
+    }
+    return null;
+  };
 
   return (
     <div className="slide-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', width: '100%' }}>
@@ -194,18 +222,18 @@ export const PortfolioSlide: React.FC = () => {
           <div style={{ 
             backgroundColor: 'var(--color-white)',
             borderRadius: '24px',
-            padding: '40px',
+            padding: '36px',
             boxShadow: 'var(--shadow-medium)',
             border: '1px solid rgba(107, 27, 39, 0.04)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            gap: '30px'
+            gap: '25px'
           }}>
             {/* Header info */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                <h3 style={{ fontSize: '26px', color: 'var(--color-vinotinto)' }}>{activeBrand.name}</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
+                <h3 style={{ fontSize: '24px', color: 'var(--color-vinotinto)' }}>{activeBrand.name}</h3>
                 
                 <a 
                   href={activeBrand.link} 
@@ -217,117 +245,296 @@ export const PortfolioSlide: React.FC = () => {
                     gap: '6px',
                     color: 'var(--color-gold-dark)',
                     textDecoration: 'none',
-                    fontWeight: 500,
-                    fontSize: '14px'
+                    fontWeight: 600,
+                    fontSize: '13px',
+                    padding: '6px 14px',
+                    borderRadius: '20px',
+                    backgroundColor: 'var(--color-beige)',
+                    transition: 'var(--transition-quick)'
                   }}
                   className="insta-link"
                 >
-                  <FiInstagram size={16} /> {activeBrand.handle} <FiExternalLink size={12} />
+                  <FiInstagram size={15} /> {activeBrand.handle} <FiExternalLink size={12} />
                 </a>
               </div>
               
-              <p style={{ color: 'var(--color-text-muted)', fontSize: '15px', lineHeight: '1.6', fontWeight: 300 }}>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: '14.5px', lineHeight: '1.6', fontWeight: 300 }}>
                 {activeBrand.desc}
               </p>
             </div>
 
             {/* Reels Video Cards */}
             <div>
-              <h4 style={{ 
-                fontSize: '13px', 
-                fontWeight: 600, 
-                textTransform: 'uppercase', 
-                letterSpacing: '2px', 
-                color: 'var(--color-text-dark)',
-                marginBottom: '20px'
-              }}>
-                Contenido Destacado
-              </h4>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h4 style={{ 
+                  fontSize: '12px', 
+                  fontWeight: 600, 
+                  textTransform: 'uppercase', 
+                  letterSpacing: '2px', 
+                  color: 'var(--color-text-dark)',
+                  margin: 0
+                }}>
+                  Contenido Destacado
+                </h4>
+                <span style={{ fontSize: '11px', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                  Haz clic para ver el video interactivo
+                </span>
+              </div>
               
-              <div style={{ display: 'flex', gap: '20px' }}>
-                {activeBrand.reels.map((reel, rIdx) => (
-                  <a
-                    key={rIdx}
-                    href={reel.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      flex: '1',
-                      maxWidth: '200px',
-                      aspectRatio: '9/16',
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      background: reel.previewColor,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      padding: '15px',
-                      color: 'var(--color-white)',
-                      textDecoration: 'none',
-                      position: 'relative',
-                      boxShadow: 'var(--shadow-subtle)',
-                      transition: 'var(--transition-smooth)',
-                      border: '4px solid #fff'
-                    }}
-                    className="reel-card"
-                  >
-                    {/* Top part: Brand emoji */}
-                    <span style={{ fontSize: '24px' }}>{reel.emoji}</span>
-
-                    {/* Middle part: Play Button Icon Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                      backdropFilter: 'blur(5px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: '1px solid rgba(255, 255, 255, 0.4)',
-                      transition: 'var(--transition-quick)'
-                    }}
-                    className="reel-play-btn"
+              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                {activeBrand.reels.map((reel, rIdx) => {
+                  const embedUrl = getEmbedUrl(reel.url);
+                  return (
+                    <div
+                      key={rIdx}
+                      style={{
+                        flex: '1',
+                        minWidth: '150px',
+                        maxWidth: '220px',
+                        aspectRatio: '9/15',
+                        borderRadius: '18px',
+                        overflow: 'hidden',
+                        background: reel.previewColor,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        padding: '16px',
+                        color: 'var(--color-white)',
+                        position: 'relative',
+                        boxShadow: 'var(--shadow-medium)',
+                        transition: 'var(--transition-smooth)',
+                        border: '4px solid #fff',
+                        cursor: 'pointer'
+                      }}
+                      className="reel-card"
+                      onClick={() => {
+                        if (embedUrl) {
+                          setActiveModalReel({ reel, brandName: activeBrand.name });
+                        } else {
+                          window.open(reel.url, '_blank');
+                        }
+                      }}
                     >
-                      <FiPlay size={18} fill="#fff" color="#fff" />
-                    </div>
+                      {/* Top part: Brand emoji & badge */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 2 }}>
+                        <span style={{ fontSize: '22px' }}>{reel.emoji}</span>
+                        <span style={{ 
+                          fontSize: '9.5px', 
+                          fontWeight: 700, 
+                          backgroundColor: 'rgba(0,0,0,0.3)', 
+                          padding: '3px 8px', 
+                          borderRadius: '12px',
+                          backdropFilter: 'blur(4px)',
+                          letterSpacing: '0.5px'
+                        }}>
+                          {reel.views}
+                        </span>
+                      </div>
 
-                    {/* Bottom part: Title and Insta hint */}
-                    <div style={{ zIndex: 2 }}>
-                      <p style={{ color: '#fff', fontSize: '12px', fontWeight: 600, textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
-                        {reel.title}
-                      </p>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '9px', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>
-                        Ver en Instagram
-                      </span>
+                      {/* Middle part: Play Button Icon Overlay */}
+                      <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                        backdropFilter: 'blur(8px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        border: '2px solid rgba(255, 255, 255, 0.6)',
+                        transition: 'var(--transition-quick)',
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.15)'
+                      }}
+                      className="reel-play-btn"
+                      >
+                        <FiPlay size={20} fill="#fff" color="#fff" style={{ marginLeft: '3px' }} />
+                      </div>
+
+                      {/* Bottom part: Title and Insta hint */}
+                      <div style={{ zIndex: 2 }}>
+                        <p style={{ color: '#fff', fontSize: '12.5px', fontWeight: 700, textShadow: '0 2px 6px rgba(0,0,0,0.4)', marginBottom: '4px' }}>
+                          {reel.title}
+                        </p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', opacity: 0.95, textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 600 }}>
+                          <FiEye size={12} /> Ver Video
+                        </div>
+                      </div>
                     </div>
-                  </a>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Interactive Instagram Embed Modal Player */}
+      {activeModalReel && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(20, 16, 15, 0.82)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+          onClick={() => setActiveModalReel(null)}
+        >
+          <div 
+            style={{
+              backgroundColor: 'var(--color-white)',
+              borderRadius: '24px',
+              width: '100%',
+              maxWidth: '440px',
+              maxHeight: '90vh',
+              overflow: 'hidden',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.4)',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              animation: 'modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{
+              padding: '16px 20px',
+              backgroundColor: 'var(--color-vinotinto)',
+              color: 'var(--color-beige)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '16px', color: 'var(--color-beige)', fontFamily: 'var(--font-heading)' }}>
+                  {activeModalReel.brandName}
+                </h4>
+                <span style={{ fontSize: '11px', opacity: 0.8 }}>
+                  {activeModalReel.reel.title}
+                </span>
+              </div>
+              <button 
+                onClick={() => setActiveModalReel(null)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--color-beige)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255,255,255,0.1)'
+                }}
+                aria-label="Cerrar modal"
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+
+            {/* Embedded Instagram Reel Iframe */}
+            <div style={{
+              width: '100%',
+              height: '480px',
+              backgroundColor: '#FAFAFA',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden'
+            }}>
+              {getEmbedUrl(activeModalReel.reel.url) ? (
+                <iframe
+                  src={getEmbedUrl(activeModalReel.reel.url)!}
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  scrolling="no"
+                  allowTransparency={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  title={activeModalReel.reel.title}
+                />
+              ) : (
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
+                  No se pudo cargar el reproductor embed.
+                </p>
+              )}
+            </div>
+
+            {/* Modal Footer Link */}
+            <div style={{
+              padding: '14px 20px',
+              borderTop: '1px solid rgba(107, 27, 39, 0.08)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: 'var(--color-beige)'
+            }}>
+              <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
+                ¿Prefieres verlo en la app?
+              </span>
+              <a
+                href={activeModalReel.reel.url}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  backgroundColor: 'var(--color-vinotinto)',
+                  color: 'var(--color-beige)',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  textDecoration: 'none'
+                }}
+              >
+                <FiInstagram size={14} /> Abrir en Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
       <style>{`
         .brand-tab:hover {
           transform: translateX(5px) !important;
         }
         .reel-card:hover {
-          transform: scale(1.04) translateY(-5px) !important;
-          box-shadow: var(--shadow-medium) !important;
+          transform: scale(1.04) translateY(-6px) !important;
+          box-shadow: 0 16px 32px rgba(107, 27, 39, 0.18) !important;
         }
         .reel-card:hover .reel-play-btn {
           background-color: var(--color-vinotinto) !important;
           border-color: var(--color-vinotinto) !important;
-          transform: translate(-50%, -50%) scale(1.1) !important;
+          transform: translate(-50%, -50%) scale(1.15) !important;
         }
         .insta-link:hover {
-          color: var(--color-vinotinto) !important;
+          background-color: var(--color-vinotinto) !important;
+          color: var(--color-beige) !important;
+        }
+        @keyframes modalSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.96);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
         }
         @media (max-width: 900px) {
           .slide-content {
@@ -345,7 +552,7 @@ export const PortfolioSlide: React.FC = () => {
             padding: 12px 18px !important;
           }
           .reel-card {
-            max-width: 140px !important;
+            max-width: 150px !important;
           }
         }
       `}</style>

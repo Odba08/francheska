@@ -4,6 +4,7 @@ import paralImg from '../assets/paral.jpg';
 import phoneImg from '../assets/phone.jpg';
 import ledImg from '../assets/led.jpg';
 import microfonoImg from '../assets/microfono2.png';
+import microfono2Img from '../assets/microfono.jpg';
 
 export const BehindFeedSlide: React.FC = () => {
   const tools = [
@@ -23,14 +24,19 @@ export const BehindFeedSlide: React.FC = () => {
       rotate: '-1deg'
     },
     {
+      img: microfono2Img,
+      title: 'MIC INALÁMBRICO',
+      rotate: '1deg'
+    },
+    {
       img: phoneImg,
       title: 'IPHONE 14 PRO',
-      rotate: '1.5deg'
+      rotate: '-1.5deg'
     },
     {
       img: ledImg,
       title: 'PANEL SMALLRIG',
-      rotate: '-2deg'
+      rotate: '2deg'
     }
   ];
 
@@ -42,10 +48,10 @@ export const BehindFeedSlide: React.FC = () => {
       {/* Main Canvas Card */}
       <div style={{
         width: '100%',
-        maxWidth: '1000px',
+        maxWidth: '1050px',
         backgroundColor: 'var(--color-white)',
         borderRadius: '24px',
-        padding: '40px 30px',
+        padding: '35px 25px',
         boxShadow: 'var(--shadow-medium)',
         border: '1px solid rgba(107, 27, 39, 0.04)',
         zIndex: 1,
@@ -58,7 +64,7 @@ export const BehindFeedSlide: React.FC = () => {
         {/* Top Vinotinto Title Banner */}
         <div style={{
           backgroundColor: 'var(--color-vinotinto)',
-          padding: '16px 60px',
+          padding: '14px 50px',
           color: 'var(--color-beige)',
           borderRadius: '4px',
           textAlign: 'center',
@@ -68,7 +74,7 @@ export const BehindFeedSlide: React.FC = () => {
           <h2 style={{
             color: 'var(--color-beige)',
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(28px, 4vw, 44px)',
+            fontSize: 'clamp(26px, 3.5vw, 40px)',
             fontWeight: 700,
             letterSpacing: '3px',
             margin: 0,
@@ -82,9 +88,9 @@ export const BehindFeedSlide: React.FC = () => {
         <p style={{
           fontFamily: 'var(--font-heading)',
           fontStyle: 'italic',
-          fontSize: 'clamp(18px, 2.5vw, 24px)',
+          fontSize: 'clamp(17px, 2.2vw, 22px)',
           color: 'var(--color-text-dark)',
-          marginBottom: '40px',
+          marginBottom: '35px',
           fontWeight: 400
         }}>
           Mis herramientas de trabajo
@@ -93,12 +99,12 @@ export const BehindFeedSlide: React.FC = () => {
         {/* Visual Equipment Collage */}
         <div style={{
           display: 'flex',
-          gap: '24px',
+          gap: '18px',
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
           flexWrap: 'wrap',
-          minHeight: '260px'
+          minHeight: '250px'
         }}
         className="collage-container"
         >
@@ -109,22 +115,22 @@ export const BehindFeedSlide: React.FC = () => {
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
-                gap: '16px',
+                gap: '14px',
                 transform: `rotate(${t.rotate})`
               }} 
               className="tool-card"
             >
               {/* Photo Frame Container */}
               <div style={{
-                width: '135px',
-                height: '175px',
+                width: '125px',
+                height: '165px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 backgroundColor: 'var(--color-beige-dark)',
-                border: '6px solid var(--color-white)',
+                border: '5px solid var(--color-white)',
                 boxShadow: 'var(--shadow-subtle)',
                 transition: 'var(--transition-smooth)',
                 cursor: 'pointer'
@@ -149,9 +155,9 @@ export const BehindFeedSlide: React.FC = () => {
                 backgroundColor: '#FFF59D', 
                 color: 'var(--color-text-dark)', 
                 fontWeight: 700, 
-                padding: '4px 12px', 
+                padding: '4px 10px', 
                 borderRadius: '2px', 
-                fontSize: '11px',
+                fontSize: '10.5px',
                 letterSpacing: '1px',
                 fontFamily: 'var(--font-heading)',
                 boxShadow: '2px 2px 0px rgba(0,0,0,0.05)',
@@ -167,7 +173,7 @@ export const BehindFeedSlide: React.FC = () => {
         <p style={{
           color: 'var(--color-text-muted)',
           fontSize: '12px',
-          marginTop: '45px',
+          marginTop: '35px',
           fontWeight: 400,
           letterSpacing: '1px',
           textTransform: 'uppercase',
@@ -200,11 +206,11 @@ export const BehindFeedSlide: React.FC = () => {
             padding: 40px 16px !important;
           }
           .collage-container {
-            gap: 20px !important;
+            gap: 16px !important;
           }
           .tool-image-frame {
-            width: 110px !important;
-            height: 140px !important;
+            width: 100px !important;
+            height: 135px !important;
           }
         }
       `}</style>
